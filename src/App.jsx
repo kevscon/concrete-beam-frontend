@@ -27,6 +27,10 @@ const App = () => {
   const [areaSteel, setAreaSteel] = useState('');
   const [areaSteelPerFt, setAreaSteelPerFt] = useState('');
 
+  const [M_cr, setM_cr] = useState('');
+  const [Ats, setAts] = useState('');
+  const [gamma_er, setgamma_er] = useState('');
+
   const [cracked, setCracked] =  useState('');
   const [fConc, setfConc] =  useState('');
   const [fSteel, setfSteel] =  useState('');
@@ -45,6 +49,7 @@ const App = () => {
           concDensity: materialInput.concDensity,
         });
         setWeight(response.data.weight);
+        setM_cr(response.data.M_cr)
       } catch (error) {
         console.error('Error calculating weight:', error);
       }
@@ -173,7 +178,7 @@ const App = () => {
         {/* Load Input */}
         <div className="row mb-3 align-items-end">
           <div className="col-md-3 mb-3">
-            <label htmlFor="M_u">M_u (k-ft)</label>
+            <label htmlFor="M_u">M<sub>u</sub> (k-ft)</label>
             <input
               type="number"
               id="M_u"
@@ -183,7 +188,7 @@ const App = () => {
             />
           </div>
           <div className="col-md-3 mb-3">
-            <label htmlFor="M_s">M_s (k-ft)</label>
+            <label htmlFor="M_s">M<sub>s</sub> (k-ft)</label>
             <input
               type="number"
               id="M_s"
@@ -193,7 +198,7 @@ const App = () => {
             />
           </div>
           <div className="col-md-3 mb-3">
-            <label htmlFor="V_u">V_u (kips)</label>
+            <label htmlFor="V_u">V<sub>u</sub> (kips)</label>
             <input
               type="number"
               id="V_u"
@@ -206,20 +211,38 @@ const App = () => {
 
         {/* Section Input Group with Weight Output */}
         <div className="row mb-3 align-items-end">
-          {['width', 'height', 'cover'].map((key) => (
-            <div className="col-md-3 mb-3" key={key}>
-              <label htmlFor={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</label>
-              <input
-                type="number"
-                id={key}
-                className="form-control"
-                value={sectionInput[key] || 0}
-                onChange={(e) => handleSectionInputChange(key, e.target.value)}
-              />
-            </div>
-          ))}
           <div className="col-md-3 mb-3">
-            <label htmlFor="weight">Weight (k/ft)</label>
+            <label htmlFor="width">Width, b (in)</label>
+            <input
+              type="number"
+              id="width"
+              className="form-control"
+              value={sectionInput.width}
+              onChange={(e) => handleSectionInputChange('width', e.target.value)}
+            />
+          </div>
+          <div className="col-md-3 mb-3">
+            <label htmlFor="height">Height, h (in)</label>
+            <input
+              type="number"
+              id="height"
+              className="form-control"
+              value={sectionInput.height}
+              onChange={(e) => handleSectionInputChange('height', e.target.value)}
+            />
+          </div>
+          <div className="col-md-3 mb-3">
+            <label htmlFor="cover">Cover (in)</label>
+            <input
+              type="number"
+              id="cover"
+              className="form-control"
+              value={sectionInput.cover}
+              onChange={(e) => handleSectionInputChange('cover', e.target.value)}
+            />
+          </div>
+          <div className="col-md-3 mb-3">
+            <label htmlFor="weight">Self-Weight (k/ft)</label>
             <input
               type="text"
               id="weight"
@@ -265,7 +288,7 @@ const App = () => {
             />
           </div>
           <div className="col-md-3 mb-3">
-            <label htmlFor="areaSteel">Steel Area (in^2)</label>
+            <label htmlFor="areaSteel">Steel Area (in<sup>2</sup>)</label>
             <input
               type="text"
               id="areaSteel"
@@ -278,7 +301,7 @@ const App = () => {
             />
           </div>
           <div className="col-md-3 mb-3">
-            <label htmlFor="areaSteelPerFt">Steel Area (in^2/ft)</label>
+            <label htmlFor="areaSteelPerFt">Steel Area (in<sup>2</sup>/ft)</label>
             <input
               type="text"
               id="areaSteelPerFt"
@@ -295,7 +318,7 @@ const App = () => {
         {/* Material Input */}
         <div className="row mb-3 align-items-end">
           <div className="col-md-3 mb-3">
-            <label htmlFor="f_y">f_y (ksi)</label>
+            <label htmlFor="f_y">f<sub>y</sub> (ksi)</label>
             <select
               id="f_y"
               className="form-control"
@@ -310,7 +333,7 @@ const App = () => {
             </select>
           </div>
           <div className="col-md-3 mb-3">
-            <label htmlFor="f_c">f'_c (ksi)</label>
+            <label htmlFor="f_c">f'<sub>c</sub> (ksi)</label>
             <input
               type="number"
               id="f_c"
@@ -320,7 +343,7 @@ const App = () => {
             />
           </div>
           <div className="col-md-3 mb-3">
-            <label htmlFor="E_s">E_s (ksi)</label>
+            <label htmlFor="E_s">E<sub>s</sub> (ksi)</label>
             <input
               type="number"
               id="E_s"
@@ -330,7 +353,7 @@ const App = () => {
             />
           </div>
           <div className="col-md-3 mb-3">
-            <label htmlFor="concDensity">Conc Density (pcf)</label>
+            <label htmlFor="concDensity">Conc. Density (pcf)</label>
             <input
               type="number"
               id="concDensity"
@@ -344,7 +367,7 @@ const App = () => {
         {/* Factor Input */}
         <div className="row mb-3 align-items-end">
           <div className="col-md-3 mb-3">
-            <label htmlFor="phi_m">phi_m</label>
+            <label htmlFor="phi_m">&phi;<sub>m</sub></label>
             <input
               type="number"
               id="phi_m"
@@ -354,7 +377,7 @@ const App = () => {
             />
           </div>
           <div className="col-md-3 mb-3">
-            <label htmlFor="phi_v">phi_v</label>
+            <label htmlFor="phi_v">&phi;<sub>v</sub></label>
             <input
               type="number"
               id="phi_v"
@@ -366,6 +389,49 @@ const App = () => {
         </div>
 
         <h2 className="mb-4">Output</h2>
+
+        {/* Slab Prop Output */}
+        <div className="row mb-3 align-items-end">
+          <div className="col-md-3 mb-3">
+            <label htmlFor="M_cr">M<sub>cr</sub> (k-ft)</label>
+            <input
+              type="text"
+              id="M_cr"
+              className="form-control"
+              value={M_cr}
+              style={{
+                backgroundColor: '#f0f0f0'
+              }}
+              readOnly
+            />
+          </div>
+          <div className="col-md-3 mb-3">
+            <label htmlFor="Ats">A<sub>ts</sub> (in<sup>2</sup>/ft)</label>
+            <input
+              type="text"
+              id="Ats"
+              className="form-control"
+              value={Ats}
+              style={{
+                backgroundColor: '#f0f0f0'
+              }}
+              readOnly
+            />
+          </div>
+          <div className="col-md-3 mb-3">
+            <label htmlFor="gamma_er">&gamma;<sub>er</sub></label>
+            <input
+              type="text"
+              id="gamma_er"
+              className="form-control"
+              value={gamma_er}
+              style={{
+                backgroundColor: '#f0f0f0'
+              }}
+              readOnly
+            />
+          </div>
+        </div>
 
         {/* Stress Output */}
         <div className="row mb-3 align-items-end">
@@ -413,7 +479,7 @@ const App = () => {
         {/* Design Output */}
         <div className="row mb-3 align-items-end">
           <div className="col-md-3 mb-3">
-            <label htmlFor="phiMn">phiMn (k-ft)</label>
+            <label htmlFor="phiMn">&phi;M<sub>n</sub> (k-ft)</label>
             <input
               type="text"
               id="phiMn"
@@ -439,7 +505,7 @@ const App = () => {
             />
           </div>
           <div className="col-md-3 mb-3">
-            <label htmlFor="phiVn">phiMn (k-ft)</label>
+            <label htmlFor="phiVn">&phi;V<sub>n</sub> (k-ft)</label>
             <input
               type="text"
               id="phiVn"

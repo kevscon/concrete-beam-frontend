@@ -46,7 +46,9 @@ const App = () => {
         const response = await axios.post(`${API_URL}/weight`, {
           width: sectionInput.width,
           height: sectionInput.height,
+          f_c: materialInput.f_c,
           concDensity: materialInput.concDensity,
+          size: rebarInput.size,
         });
         setWeight(response.data.weight);
         setM_cr(response.data.M_cr)
@@ -55,7 +57,13 @@ const App = () => {
       }
     };
     calculateWeight();
-  }, [sectionInput.width, sectionInput.height, materialInput.concDensity]);
+  }, [
+    sectionInput.width, 
+    sectionInput.height, 
+    materialInput.f_c, 
+    materialInput.concDensity,
+    rebarInput.size
+  ]);
 
   // Function to handle input changes and send to backend for steel area calculation
   useEffect(() => {
@@ -147,6 +155,32 @@ const App = () => {
       factorInput.phi_m,
       factorInput.phi_v
     ]);
+
+    // Function to calculate slab design
+    useEffect(() => {
+      const calculateDesign = async () => {
+        try {
+          const response = await axios.post(`${API_URL}/design`, {
+            width: sectionInput.width,
+            height: sectionInput.height,
+            f_y: materialInput.f_y,
+            phi_m: factorInput.phi_m,
+            M_u: loadInput.M_u
+          });
+          setAts(response.data.A_ts);
+          setgamma_er(response.data.gamma_er)
+        } catch (error) {
+          console.error('Error calculating design:', error);
+        }
+      };
+      calculateDesign();
+    }, [
+      sectionInput.width, 
+      sectionInput.height, 
+      factorInput.phi_m,
+      loadInput.M_u
+    ]);
+
 
   // Handlers for updating input states
   const handleLoadInputChange = (key, value) => {

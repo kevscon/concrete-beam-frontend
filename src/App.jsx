@@ -164,8 +164,9 @@ const App = () => {
             width: sectionInput.width,
             height: sectionInput.height,
             f_y: materialInput.f_y,
-            phi_m: factorInput.phi_m,
-            M_u: loadInput.M_u
+            M_u: loadInput.M_u,
+            M_cr: M_cr,
+            phiMn: phiMn
           });
           setAts(response.data.A_ts);
           setgamma_er(response.data.gamma_er)
@@ -177,8 +178,10 @@ const App = () => {
     }, [
       sectionInput.width, 
       sectionInput.height, 
-      factorInput.phi_m,
-      loadInput.M_u
+      materialInput.f_y,
+      loadInput.M_u,
+      M_cr,
+      phiMn
     ]);
 
 

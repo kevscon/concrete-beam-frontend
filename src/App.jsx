@@ -9,8 +9,6 @@ import ResultField from './components/ResultField';
 import useAnalyzeBeam from './hooks/useAnalyzeBeam';
 import { Spinner } from 'react-bootstrap';
 
-// concrete-beam-frontend
-
 const App = () => {
   const [loadInput, setLoadInput] = useState({ M_u: 0, V_u: 0, M_s: 0, crackClass: "Class 2" });
   const [sectionInput, setSectionInput] = useState({ width: 12, height: 8, cover: 1 });
@@ -111,7 +109,7 @@ const App = () => {
         <h4>Reinf. Output:</h4>
         <div className="row mb-3 align-items-end">
           <TextField label="A<sub>ts</sub> (in<sup>2</sup>/ft)" value={Ats} readOnly id="Ats" style={{ backgroundColor: '#f0f0f0' }}/>
-          <TextField label="&gamma;<sub>er</sub>" value={gamma_er} readOnly id="gamma_er" style={{ backgroundColor: '#f0f0f0' }}/>
+          <TextField label="&lambda;<sub>er</sub>" value={gamma_er} readOnly id="gamma_er" style={{ backgroundColor: '#f0f0f0' }}/>
         </div>
 
           </>

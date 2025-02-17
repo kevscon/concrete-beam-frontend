@@ -56,24 +56,24 @@ const App = () => {
 
         {/* Load Input */}
         <div className="row mb-3 align-items-end">
-          <InputField label="M<sub>u</sub> (k-ft)" value={loadInput.M_u} onChange={handleInputChange(setLoadInput)} id="M_u"/>
-          <InputField label="V<sub>u</sub> (kips)" value={loadInput.V_u} onChange={handleInputChange(setLoadInput)} id="V_u"/>
-          <InputField label="M<sub>s</sub> (k-ft)" value={loadInput.M_s} onChange={handleInputChange(setLoadInput)} id="M_s"/>
+          <InputField label="M<sub>u</sub> (k-ft)" value={loadInput.M_u} onChange={handleInputChange(setLoadInput)} id="M_u" min="0"/>
+          <InputField label="V<sub>u</sub> (kips)" value={loadInput.V_u} onChange={handleInputChange(setLoadInput)} id="V_u" min="0"/>
+          <InputField label="M<sub>s</sub> (k-ft)" value={loadInput.M_s} onChange={handleInputChange(setLoadInput)} id="M_s" min="0"/>
           <SelectField label="Crack Class" value={loadInput.crackClass} onChange={handleSelectChange(setLoadInput)} id="crackClass" options={['Class 1', 'Class 2']}/>
         </div>
 
         {/* Section Input */}
         <div className="row mb-3 align-items-end">
-          <InputField label="Width, b (in)" value={sectionInput.width} onChange={handleInputChange(setSectionInput)} id="width"/>
-          <InputField label="Height, h (in)" value={sectionInput.height} onChange={handleInputChange(setSectionInput)} id="height"/>
-          <InputField label="Cover (in)" value={sectionInput.cover} onChange={handleInputChange(setSectionInput)} id="cover" step="0.5"/>
+          <InputField label="Width, b (in)" value={sectionInput.width} onChange={handleInputChange(setSectionInput)} id="width" min="0"/>
+          <InputField label="Height, h (in)" value={sectionInput.height} onChange={handleInputChange(setSectionInput)} id="height" min="0"/>
+          <InputField label="Cover (in)" value={sectionInput.cover} onChange={handleInputChange(setSectionInput)} id="cover" step="0.25" min="0"/>
           <TextField label="Self-Weight (k/ft)" value={weight} readOnly id="weight" style={{ backgroundColor: '#f0f0f0' }}/>
         </div>
 
         {/* Rebar Input */}
         <div className="row mb-3 align-items-end">
           <SelectField label="Rebar Size" value={rebarInput.size} onChange={handleSelectChange(setRebarInput)} id="size" options={['#3', '#4', '#5', '#6', '#7', '#8', '#9', '#10', '#11']}/>
-          <InputField label="Spacing (in)" value={rebarInput.spacing} onChange={handleInputChange(setRebarInput)} id="spacing" step="0.5"/>
+          <InputField label="Spacing (in)" value={rebarInput.spacing} onChange={handleInputChange(setRebarInput)} id="spacing" step="0.5" min="0"/>
           <TextField label="Steel Area (in<sup>2</sup>)" value={areaSteel} readOnly id="areaSteel" style={{ backgroundColor: '#f0f0f0' }}/>
           <TextField label="Steel Area (in<sup>2</sup>/ft)" value={areaSteelPerFt} readOnly id="areaSteelPerFt" style={{ backgroundColor: '#f0f0f0' }}/>
         </div>
@@ -81,16 +81,16 @@ const App = () => {
         {/* Material Input */}
         <div className="row mb-3 align-items-end">
           <SelectField label="Steel Grade" value={materialInput.steelGrade} onChange={handleSelectChange(setMaterialInput)} id="steelGrade" options={["A615, Grade 60", "A615, Grade 75", "A615, Grade 80", "A607, Grade 60", "A607, Grade 80", "A1035, Grade 100"]}/>
-          <InputField label="f'<sub>c</sub> (ksi)" value={materialInput.f_c} onChange={handleInputChange(setMaterialInput)} id="f_c" step="0.5"/>
-          <InputField label="Conc. Density (pcf)" value={materialInput.concDensity} onChange={handleInputChange(setMaterialInput)} id="concDensity"/>
+          <InputField label="f'<sub>c</sub> (ksi)" value={materialInput.f_c} onChange={handleInputChange(setMaterialInput)} id="f_c" step="0.5" min="2.5" max="10"/>
+          <InputField label="Conc. Density (pcf)" value={materialInput.concDensity} onChange={handleInputChange(setMaterialInput)} id="concDensity" min="0"/>
           <TextField label="M<sub>cr</sub> (k-ft)" value={M_cr} readOnly id="M_cr" style={{ backgroundColor: '#f0f0f0' }}/>
 
         </div>
 
         {/* Factor Input */}
         <div className="row mb-3 align-items-end">
-          <InputField label="&phi;<sub>m</sub>" value={factorInput.phi_m} onChange={handleInputChange(setFactorInput)} id="phi_m" step="0.01"/>
-          <InputField label="&phi;<sub>v</sub>" value={factorInput.phi_v} onChange={handleInputChange(setFactorInput)} id="phi_v" step="0.01"/>
+          <InputField label="&phi;<sub>m</sub>" value={factorInput.phi_m} onChange={handleInputChange(setFactorInput)} id="phi_m" step="0.01" min="0" max="1"/>
+          <InputField label="&phi;<sub>v</sub>" value={factorInput.phi_v} onChange={handleInputChange(setFactorInput)} id="phi_v" step="0.01" min="0" max="1"/>
         </div>
 
         {/* Outputs */}

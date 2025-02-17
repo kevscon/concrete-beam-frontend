@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InputField = ({ label, value, onChange, id, readOnly, style, step=1 }) => (
+const InputField = ({ label, value, onChange, id, readOnly, style, step=1, min, max }) => (
   <div className="col-md-3 mb-3">
     <label htmlFor={id} dangerouslySetInnerHTML={{ __html: label }} />
     <input
@@ -15,6 +15,8 @@ const InputField = ({ label, value, onChange, id, readOnly, style, step=1 }) => 
       readOnly={readOnly}
       style={style}
       step={step}
+      min={min}
+      max={max}
     />
   </div>
 );

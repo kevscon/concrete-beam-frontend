@@ -80,7 +80,7 @@ const App = () => {
 
         {/* Material Input */}
         <div className="row mb-3 align-items-end">
-          <SelectField label="Steel Grade" value={materialInput.steelGrade} onChange={handleSelectChange(setMaterialInput)} id="steelGrade" options={["A615, Grade 60", "A615, Grade 75", "A615, Grade 80", "A607, Grade 60", "A607, Grade 80", "A1035, Grade 100"]}/>
+          <SelectField label="Steel Grade" value={materialInput.steelGrade} onChange={handleSelectChange(setMaterialInput)} id="steelGrade" options={["Grade 40", "A615, Grade 60", "A615, Grade 75", "A615, Grade 80", "A607, Grade 60", "A607, Grade 80", "A1035, Grade 100"]}/>
           <InputField label="f'<sub>c</sub> (ksi)" value={materialInput.f_c} onChange={handleInputChange(setMaterialInput)} id="f_c" step="0.5" min="2.5" max="10"/>
           <InputField label="Conc. Density (pcf)" value={materialInput.concDensity} onChange={handleInputChange(setMaterialInput)} id="concDensity" min="0"/>
           <TextField label="M<sub>cr</sub> (k-ft)" value={M_cr} readOnly id="M_cr" style={{ backgroundColor: '#f0f0f0' }}/>
